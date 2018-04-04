@@ -25,11 +25,16 @@ const store = createStore(reducers, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f  // redux 调试工具
 ));
 
+function Boss(){
+  return <h2>Boss 页面</h2>
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
         <Auth></Auth>
+        <Route path={'/boss'} component={Boss}></Route>
         <Route path='/login' component={Login}></Route>
         <Route path='/register' component={Register}></Route>
       </div>

@@ -9,20 +9,8 @@
 
 import {combineReducers} from 'redux';
 
-const ADD_GUN = '加机关枪';
-const REMOVE_GUN = '减机关枪';
-
-export function counter (state = 10,action){
-  switch(action.type){
-    case ADD_GUN:
-      return ++state;
-    case REMOVE_GUN:
-      return --state;
-    default:
-      return state;
-  }
-}
+import {User} from './user';
 
 export default combineReducers({
-  counter
+  User
 });

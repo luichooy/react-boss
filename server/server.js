@@ -8,33 +8,14 @@
 
 
 const express = require('express');
-const mongoose = require('mongoose');
-
-const DB_URL = 'mongodb://localhost:27017/imooc';
-
-mongoose.connect(DB_URL);
-mongoose.connection.on('connected', function () {
-  console.log('mongo connect success');
-});
-
-const User = mongoose.model('user', new mongoose.Schema({
-  user: {type: String, require: true},
-  age: {type: Number, require: true}
-}));
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const userRouter = require('./user');
 
 const app = express();
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hello, React!</h1>');
-});
-
-app.get('/data', (req, res) => {
-  res.json({
-    user: 'luichooy',
-    age: 18
-  });
-});
-
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use('/user', userRouter);
 
 app.listen('9093', () => {
   console.log('Server runs at port 9093');
