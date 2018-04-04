@@ -10,9 +10,12 @@ import {
   Switch
 } from 'react-router-dom';
 
+import './http';
+
 import reducers from './reducers';
 import Login from './containers/login';
 import Register from './containers/register';
+import {Auth} from './components';
 
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -26,6 +29,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
+        <Auth></Auth>
         <Route path='/login' component={Login}></Route>
         <Route path='/register' component={Register}></Route>
       </div>

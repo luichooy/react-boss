@@ -8,6 +8,19 @@
 
 
 const express = require('express');
+const mongoose = require('mongoose');
+
+const DB_URL = 'mongodb://localhost:27017/imooc';
+
+mongoose.connect(DB_URL);
+mongoose.connection.on('connected', function () {
+  console.log('mongo connect success');
+});
+
+const User = mongoose.model('user', new mongoose.Schema({
+  user: {type: String, require: true},
+  age: {type: Number, require: true}
+}));
 
 const app = express();
 
