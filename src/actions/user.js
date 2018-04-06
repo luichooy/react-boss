@@ -7,13 +7,29 @@
  */
 
 
-
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+const LOAD_DATA = 'LOAD_DATA';
 const ERROR_MSG = 'ERROR_MSG';
+
+
+export function loginSuccess (data) {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: data
+  };
+}
 
 export function registerSuccess (data) {
   return {
     type: REGISTER_SUCCESS,
+    payload: data
+  };
+}
+
+export function loadData (data) {
+  return {
+    type: LOAD_DATA,
     payload: data
   };
 }

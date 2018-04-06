@@ -5,9 +5,7 @@ import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {
   BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
+  Route
 } from 'react-router-dom';
 
 import './http';

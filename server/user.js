@@ -10,48 +10,125 @@
 
 
 const express = require('express');
+const {md5} = require('utility');
 const Router = express.Router();
 const model = require('./model');
 const User = model.getModel('user');
 
+
+const _filter = {password: 0, __v: 0};
+
+function encrypt (password) {
+  let salt = 'ff43anpPlQo0;mjoJF+UA-ljfkdsaJijomn';
+  password += salt;
+  return md5(md5(password));
+}
+
 Router.get('/info', (req, res) => {
-  return res.json({
-    code: 0,
-    message: 'It is okay!',
-    data: {
-      isLogin: 1
+  const {token} = req.cookies;
+  if (!token) {
+    return res.json({
+      code: 2,
+      message: '没有权限  '
+    });
+  }
+  
+  User.findOne({_id: token}, _filter, (err, doc) => {
+    if (!doc) {
+      return res.json({
+        code: 2,
+        message: '没有权限  '
+      });
+    } else {
+      return res.json({
+        code: 0,
+        message: 'It is okay!',
+        data: doc
+      });
     }
   });
 });
 
 Router.get('/list', (req, res) => {
+  // User.remove({}, (err, doc) => {
+  // });
   User.find({}, (err, doc) => {
-    return res.json(doc);
+    if (err) {
+      return res.json({
+        code: 1,
+        message: '服务端出错'
+      });
+    }
+    return res.json({
+      code: 0,
+      message: 'It is okay!',
+      data: doc
+    });
+  });
+});
+
+Router.post('/login', (req, res) => {
+  const {username, password} = req.body;
+  
+  User.findOne({username, password: encrypt(password)}, _filter, (err, doc) => {
+    if (err) {
+      return res.json({
+        code: 1,
+        message: '服务端出错'
+      });
+    }
+    
+    if (!doc) {
+      return res.json({
+        code: 2,
+        message: '账户名或密码有误'
+      });
+    } else {
+      res.cookie('token', doc._id);
+      return res.json({
+        code: 0,
+        message: 'It is okay!',
+        data: doc
+      });
+    }
   });
 });
 
 Router.post('/register', (req, res) => {
-  console.log(req.body);
+  console.log(req);
   const {username, password, type} = req.body;
   User.findOne({username}, (err, doc) => {
-    if (doc) {
+    if (err) {
       return res.json({
         code: 1,
+        message: '服务端出错'
+      });
+    }
+    
+    if (doc) {
+      return res.json({
+        code: 2,
         message: '用户名已存在'
-      })
+      });
     } else {
-      User.create({username, password, type},(err,doc) => {
-        if(err){
+      const userModel = new User({username, type, password: encrypt(password)});
+      userModel.save((err, doc) => {
+        if (err) {
           return res.json({
-            code: 2,
-            message: '后端创建用户失败'
+            code: 1,
+            message: '创建用户失败'
           });
         }
         
-        return res.json({
-          code: 0,
-          message: '创建用户成功'
-        })
+        const {username, type, _id} = doc;
+        res.cookie('token', _id);
+        if (doc) {
+          return res.json({
+            code: 0,
+            message: '创建用户成功',
+            data: {username, type, _id}
+          })
+        }
       });
     }
   });
