@@ -7,24 +7,17 @@
  */
 
 
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const LOAD_DATA = 'LOAD_DATA';
 const ERROR_MSG = 'ERROR_MSG';
 
 
-export function loginSuccess (data) {
+export function authSuccess (data) {
+  let {password, ...user} = data;  // 过滤掉password字段 ？不太明白
   return {
-    type: LOGIN_SUCCESS,
-    payload: data
-  };
-}
-
-export function registerSuccess (data) {
-  return {
-    type: REGISTER_SUCCESS,
-    payload: data
-  };
+    type: AUTH_SUCCESS,
+    payload: user
+  }
 }
 
 export function loadData (data) {

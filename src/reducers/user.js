@@ -7,40 +7,28 @@
  */
 
 import axios from 'axios';
-import {loginSuccess, registerSuccess, errorMsg} from "../actions/user";
+import {authSuccess, errorMsg} from "../actions/user";
 
 import {getRedirectPath} from '../util/util';
 
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const LOAD_DATA = 'LOAD_DATA';
 const ERROR_MSG = 'ERROR_MSG';
 
 const initState = {
   redirectTo: '',
   msg: '',
-  isLogin: false,
   username: '',
-  password: '',
   type: ''
 };
 
 export function User (state = initState, action) {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
         redirectTo: getRedirectPath(action.payload),
         msg: '',
-        isLogin: true,
-        ...action.payload
-      };
-    case REGISTER_SUCCESS:
-      return {
-        ...state,
-        redirectTo: getRedirectPath(action.payload),
-        msg: '',
-        isLogin: true,
         ...action.payload
       };
     case LOAD_DATA:
@@ -62,7 +50,7 @@ export function login ({username, password}) {
     axios.post('/user/login', {username, password})
       .then(data => {
         if (data.code === 0) {
-          dispatch(loginSuccess(data.data));
+          dispatch(authSuccess(data.data));
         } else {
           dispatch(errorMsg(data.message));
         }
@@ -86,7 +74,24 @@ export function register ({username, password, repeatPassword, type}) {
     axios.post('/user/register', {username, password, type})
       .then(data => {
         if (data.code === 0) {
-          dispatch(registerSuccess({username, password, type}));
+          dispatch(authSuccess({username, password, type}));
+        } else {
+          console.log(`${data.code}：${data.message}`);
+          dispatch(errorMsg(data.message));
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+}
+
+export function update (data) {
+  return dispatch => {
+    axios.post('/user/update', data)
+      .then(data => {
+        if (data.code === 0) {
+          dispatch(authSuccess(data.data));
         } else {
           console.log(`${data.code}：${data.message}`);
           dispatch(errorMsg(data.message));

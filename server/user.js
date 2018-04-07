@@ -134,4 +134,34 @@ Router.post('/register', (req, res) => {
   });
 });
 
+Router.post('/update', (req, res) => {
+  const id = req.cookies.token;
+  if (!id) {
+    return res.json({
+      code: 3,
+      message: '无权操作'
+    });
+  }
+  
+  User.findByIdAndUpdate(id, req.body, _filter, (err, doc) => {
+    if (err) {
+      return res.json({
+        code: 1,
+        message: '服务器出错'
+      });
+    }
+    
+    if (doc) {
+      const data = Object.assign({}, req.body, {
+        username: doc.username,
+        type: doc.type
+      });
+      return res.json({
+        code: 0,
+        data: data
+      });
+    }
+  });
+});
+
 module.exports = Router;
