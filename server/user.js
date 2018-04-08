@@ -52,7 +52,10 @@ Router.get('/info', (req, res) => {
 Router.get('/list', (req, res) => {
   // User.remove({}, (err, doc) => {
   // });
-  User.find({}, (err, doc) => {
+  
+  const {type} = req.query;
+  
+  User.find({type: type}, _filter, (err, doc) => {
     if (err) {
       return res.json({
         code: 1,

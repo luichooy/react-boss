@@ -48,7 +48,7 @@ class Login extends Component {
   render () {
     return (
       <div className="login-wrapper">
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
+        {this.props.redirectTo && this.props.redirectTo !== '/login' ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo/>
         <WingBlank>
           {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}

@@ -10,7 +10,9 @@
 import {combineReducers} from 'redux';
 
 import {User} from './user';
+import {Chat} from './chat';
 
 export default combineReducers({
-  User
+  User,
+  Chat
 });

@@ -5,7 +5,8 @@ import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 
 import './http';
@@ -14,8 +15,9 @@ import reducers from './reducers';
 import Login from './containers/login';
 import Register from './containers/register';
 import {Auth} from './components';
-import Bossinfo from './containers/Bossinfo';
-import Geniusinfo from './containers/Geniusinfo';
+import Bossinfo from './containers/bossinfo';
+import Geniusinfo from './containers/geniusinfo';
+import Dashboard from './containers/dashboard';
 
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -30,10 +32,13 @@ ReactDOM.render(
     <Router>
       <div>
         <Auth></Auth>
-        <Route path="/geniusinfo" component={Geniusinfo}></Route>
-        <Route path="/bossinfo" component={Bossinfo}></Route>
-        <Route path='/login' component={Login}></Route>
-        <Route path='/register' component={Register}></Route>
+        <Switch>
+          <Route path="/geniusinfo" component={Geniusinfo}></Route>
+          <Route path="/bossinfo" component={Bossinfo}></Route>
+          <Route path='/login' component={Login}></Route>
+          <Route path='/register' component={Register}></Route>
+          <Route component={Dashboard}></Route>
+        </Switch>
       </div>
     </Router>
   </Provider>,

@@ -7,7 +7,7 @@
  */
 
 
-import React, {Component} from 'react';
+import {Component} from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -21,26 +21,25 @@ import {loadData} from '../../actions/user';
 class Auth extends Component {
   componentDidMount () {
     const publicList = ['/login', '/register'];
-    const pathname = this.props.location.pathname;
+    const {pathname} = this.props.location;
     if (publicList.indexOf(pathname) > -1) {
       return null;
     }
-    
     this.getUser();
   }
   
   getUser () {
     axios.get('/user/info')
-      .then(data => {
-        if (data.code === 0) {
-          this.props.loadData(data.data);
-        } else {
-          this.props.history.push('/login');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    .then(data => {
+      if (data.code === 0) {
+        this.props.loadData(data.data);
+      } else {
+        this.props.history.push('/login');
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
   
   render () {

@@ -8,3 +8,24 @@ body {
     padding-left: 10px;
     color: #ff5500;
 }
+
+.am-tab-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.fix-header.am-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.content {
+    margin-top: 45px;
+}
+
+.am-card {
+    margin-top: 8px;
+}
