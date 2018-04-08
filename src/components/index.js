@@ -14,3 +14,7 @@ export {default as Auth} from './Auth';
 export {default as AvatarSelector} from './AvatarSelector';
 
 export {default as NavLinkBar} from './NavLinkBar';
+
+export {default as UserCard} from './UserCard';
+
+export {default as UserList} from './UserList';

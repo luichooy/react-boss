@@ -51,14 +51,13 @@ class Dashboard extends Component {
         component: Chat
       },
       {
-        path: '/user',
+        path: '/center',
         text: '我',
         icon: 'user',
         title: '个人中心',
         component: Center
       },
     ];
-    const Item = TabBar.Item;
     const {pathname} = this.props.location;
     return (
       <div>

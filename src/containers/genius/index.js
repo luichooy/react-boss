@@ -8,10 +8,23 @@
 
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {getUserList} from '../../reducers/chat';
+import {UserList} from "../../components";
 
+@connect(
+  state => state.Chat,
+  {getUserList}
+)
 class Genius extends Component {
+  componentDidMount () {
+    this.props.getUserList('boss');
+  }
+  
   render () {
-    return <h2>Genius</h2>
+    return (
+      <UserList userList={this.props.userList}></UserList>
+    );
   }
 }
 

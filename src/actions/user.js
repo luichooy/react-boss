@@ -10,6 +10,7 @@
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const LOAD_DATA = 'LOAD_DATA';
 const ERROR_MSG = 'ERROR_MSG';
+const LOGOUT = 'LOGOUT';
 
 
 export function authSuccess (data) {
@@ -29,4 +30,8 @@ export function loadData (data) {
 
 export function errorMsg (msg) {
   return {msg, type: ERROR_MSG};
+}
+
+export function logout () {
+  return {type: LOGOUT}
 }
