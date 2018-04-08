@@ -10,8 +10,14 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {loadData} from '../../actions/user';
 
 @withRouter
+@connect(
+  null,
+  {loadData}
+)
 class Auth extends Component {
   componentDidMount () {
     const publicList = ['/login', '/register'];
@@ -25,20 +31,16 @@ class Auth extends Component {
   
   getUser () {
     axios.get('/user/info')
-    .then(data => {
-      if (data.code === 0) {
-        if (data.data.isLogin === 0) {
-        
+      .then(data => {
+        if (data.code === 0) {
+          this.props.loadData(data.data);
         } else {
           this.props.history.push('/login');
         }
-      } else {
-        console.log(`data.code + data.message`);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   
   render () {

@@ -5,9 +5,7 @@ import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {
   BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
+  Route
 } from 'react-router-dom';
 
 import './http';
@@ -16,6 +14,8 @@ import reducers from './reducers';
 import Login from './containers/login';
 import Register from './containers/register';
 import {Auth} from './components';
+import Bossinfo from './containers/Bossinfo';
+import Geniusinfo from './containers/Geniusinfo';
 
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -25,16 +25,13 @@ const store = createStore(reducers, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f  // redux 调试工具
 ));
 
-function Boss(){
-  return <h2>Boss 页面</h2>
-}
-
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
         <Auth></Auth>
-        <Route path={'/boss'} component={Boss}></Route>
+        <Route path="/geniusinfo" component={Geniusinfo}></Route>
+        <Route path="/bossinfo" component={Bossinfo}></Route>
         <Route path='/login' component={Login}></Route>
         <Route path='/register' component={Register}></Route>
       </div>

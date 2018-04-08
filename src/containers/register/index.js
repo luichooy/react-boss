@@ -9,6 +9,7 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import {register} from "../../reducers/user";
 
 import {Logo} from '../../components';
@@ -39,7 +40,6 @@ class Register extends Component {
   }
   
   handleRegister () {
-    console.log(this.state);
     this.props.register(this.state);
   }
   
@@ -47,6 +47,7 @@ class Register extends Component {
     const RadioItem = Radio.RadioItem;
     return (
       <div className="register-wrapper">
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo/>
         <WingBlank>
           {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}
