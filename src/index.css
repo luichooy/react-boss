@@ -9,14 +9,22 @@ body {
     color: #ff5500;
 }
 
-.am-tab-bar{
+.am-tab-bar {
     position: fixed;
     bottom: 0;
     width: 100%;
 }
 
-.am-navbar{
+.fix-header.am-navbar {
     position: fixed;
     top: 0;
     width: 100%;
+}
+
+.content {
+    margin-top: 45px;
+}
+
+.am-card {
+    margin-top: 8px;
 }

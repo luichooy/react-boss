@@ -15,9 +15,9 @@ import reducers from './reducers';
 import Login from './containers/login';
 import Register from './containers/register';
 import {Auth} from './components';
-import Bossinfo from './containers/Bossinfo';
-import Geniusinfo from './containers/Geniusinfo';
-import Dashboard from './containers/Dashboard';
+import Bossinfo from './containers/bossinfo';
+import Geniusinfo from './containers/geniusinfo';
+import Dashboard from './containers/dashboard';
 
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';

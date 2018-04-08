@@ -25,25 +25,22 @@ class NavLinkBar extends Component {
   render () {
     const Item = TabBar.Item;
     const navList = this.props.data.filter(nav => !nav.hide);
-    console.log(navList);
     return (
-      <div>
-        <TabBar>
-          {navList.map(nav => (
-            <Item
-              key={nav.path}
-              title={nav.text}
-              icon={{uri: require(`../../assets/img/${nav.icon}.png`)}}
-              selectedIcon={{uri: require(`../../assets/img/${nav.icon}-active.png`)}}
-              selected={nav.path === this.props.location.pathname}
-              onPress={() => {
-                this.props.history.push(nav.path);
-              }}
-            >
-            </Item>
-          ))}
-        </TabBar>
-      </div>
+      <TabBar>
+        {navList.map(nav => (
+          <Item
+            key={nav.path}
+            title={nav.text}
+            icon={{uri: require(`../../assets/img/${nav.icon}.png`)}}
+            selectedIcon={{uri: require(`../../assets/img/${nav.icon}-active.png`)}}
+            selected={nav.path === this.props.location.pathname}
+            onPress={() => {
+              this.props.history.push(nav.path);
+            }}
+          >
+          </Item>
+        ))}
+      </TabBar>
     );
   }
 }

@@ -7,25 +7,14 @@
  */
 
 import React, {Component} from 'react';
+import {Switch, Route} from 'react-router-dom';
 import {NavBar, TabBar} from 'antd-mobile';
 import {connect} from 'react-redux';
 import {NavLinkBar} from '../../components'
-
-function Boss () {
-  return <h2>BOSS</h2>
-}
-
-function Genius () {
-  return <h2>Genius</h2>
-}
-
-function Chat () {
-  return <h2>Chat</h2>
-}
-
-function User () {
-  return <h2>User</h2>
-}
+import Boss from '../boss';
+import Genius from '../genius';
+import Chat from '../chat';
+import Center from '../center';
 
 @connect(
   state => state
@@ -66,15 +55,21 @@ class Dashboard extends Component {
         text: '我',
         icon: 'user',
         title: '个人中心',
-        component: User
+        component: Center
       },
     ];
     const Item = TabBar.Item;
     const {pathname} = this.props.location;
     return (
       <div>
-        <NavBar>{navList.find(nav => nav.path === pathname).title}</NavBar>
-        <h2>Content</h2>
+        <NavBar className="fix-header">{navList.find(nav => nav.path === pathname).title}</NavBar>
+        <div className="content">
+          <Switch>
+            {navList.map(nav => (
+              <Route key={nav.path} path={nav.path} component={nav.component}></Route>
+            ))}
+          </Switch>
+        </div>
         <NavLinkBar data={navList}></NavLinkBar>
       </div>
     );
