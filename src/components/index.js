@@ -12,3 +12,5 @@ export {default as Logo} from './Logo';
 export {default as Auth} from './Auth';
 
 export {default as AvatarSelector} from './AvatarSelector';
+
+export {default as NavLinkBar} from './NavLinkBar';

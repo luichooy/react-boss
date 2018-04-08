@@ -8,3 +8,15 @@ body {
     padding-left: 10px;
     color: #ff5500;
 }
+
+.am-tab-bar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.am-navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
