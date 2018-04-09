@@ -13,32 +13,24 @@ import {connect} from 'react-redux';
 import {login} from '../../reducers/user';
 import {Logo} from '../../components/index';
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile';
+import {FormHOC} from '../../components';
 
 
 @connect(
   state => state.User,
   {login}
 )
+@FormHOC
 class Login extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      username: '',
-      password: ''
-    };
     
     this.handleLogin = this.handleLogin.bind(this);
     this.register = this.register.bind(this);
   }
   
   handleLogin () {
-    this.props.login(this.state);
-  }
-  
-  handleChange (key, val) {
-    this.setState({
-      [key]: val
-    });
+    this.props.login(this.props.state);
   }
   
   register () {
@@ -54,13 +46,13 @@ class Login extends Component {
           {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}
           <List>
             <InputItem
-              onChange={val => this.handleChange('username', val)}
+              onChange={val => this.props.handleChange('username', val)}
             >
               用户：
             </InputItem>
             <WhiteSpace/>
             <InputItem
-              onChange={val => this.handleChange('password', val)}
+              onChange={val => this.props.handleChange('password', val)}
               type="password"
             >
               密码：
