@@ -53,9 +53,10 @@ Router.get('/list', (req, res) => {
   // User.remove({}, (err, doc) => {
   // });
   
-  const {type} = req.query;
+  let {type} = req.query;
+  console.log(type);
   
-  User.find({type: type}, _filter, (err, doc) => {
+  User.find(type ? {type: type} : {}, _filter, (err, doc) => {
     if (err) {
       return res.json({
         code: 1,
